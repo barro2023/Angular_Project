@@ -1,0 +1,43 @@
+<div class="container">
+    <br>
+    <h2>Application de gestion de tache</h2>
+    <br>
+    <form action="">
+        <div class="form-group">
+            <label class="pb-2"  for="taskTitle">Titre</label>
+            <input [(ngModel)]="title" name="taskTitle" type="text" class="form-control" id="taskTitle" placeholder="Title">
+        </div>
+
+        <br>
+        <div class="form-group pb-4">
+            <label class="pb-2" for="comment">Commentaire</label>
+            <textarea [(ngModel)]="comment" name="comment" rows="5" class="form-control" id="comment"></textarea>
+        </div>
+        <button (click)="onSubmit()" type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <br>
+    <pre>Le titre est : {{ title | json }}</pre>
+    <pre>Le Commentaire est : {{ comment | json }}</pre>
+    <br>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td>#</td>
+                <td>Titre</td>
+                <td>Commentaire</td>
+                <td>Action</td>
+            </tr>
+        </thead>
+        <tbody>
+            @for(task of tasks; track task.title; let i = $index){
+                <tr>
+                    <td [ngClass]="{'active':task.enabled == true, 'end':task.enabled == false}">{{i+1}}</td>
+                    <td [ngClass]="{'active':task.enabled == true, 'end':task.enabled == false}">{{task.title}}</td>
+                    <td [ngClass]="{'active':task.enabled == true, 'end':task.enabled == false}">{{task.comment}}</td>
+                    <td><button (click)="close(task.id)" class="btn btn-primary">Cloturer</button></td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
